@@ -1,127 +1,153 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:foodorderingapp/screens/location_page.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:foodorderingapp/services/authService.dart';
+import 'package:provider/provider.dart';
 
-class Signin extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  _SigninState createState() => _SigninState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _SigninState extends State<Signin> {
-  
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
 
-  bool signin = true;
+  final TextEditingController passwordController = TextEditingController();
+  bool action= true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body:action? Stack(
         children: [
           Center(
-              child: LitAuth.custom(
-            builder: (context, child) {
-              return SignInForm(
-                  child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Text(
-                      signin ? 'Sign In' : 'Register',
-                      style:
-                          TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    EmailTextFormField(
+            child: Container(
+              // height: 200,
+              width: 500,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email_outlined),
-                        labelText: 'Email',
-                      ),
+                          labelText: 'Email', border: OutlineInputBorder()),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    PasswordTextFormField(
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: passwordController,
                       decoration: InputDecoration(
-                        prefixIcon: Icon((Icons.lock_open_outlined)),
-                        labelText: 'Password',
-                      ),
+                          labelText: 'Password', border: OutlineInputBorder()),
                     ),
-                    SizedBox(
-                      height: 30,
+                  ),
+                  TextButton(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      child: Text('Login'),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.redAccent.withOpacity(0.5),
-                            blurRadius: 7,
-                            offset: Offset(5, 7),
-                          ),
-                        ],
-                      ),
-                      child: FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        color: Colors.redAccent,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 60,
-                          child: Center(
-                            child: Text(
-                              signin ? 'Sign In' : 'Register',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          signin
-                              ? context.signInWithEmailAndPassword()
-                              : context.registerWithEmailAndPassword();
-                        },
-                      ),
+                    style: TextButton.styleFrom(primary: Colors.blue),
+                    onPressed: ()  {
+                      context.read<AuthService>().signIn(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      );
+                    },
+                  ),
+                  TextButton(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      child: Text('Register Instead?'),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(signin ? 'New to App?' : 'Already a member?'),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  signin = !signin;
-                                });
-                              },
-                              child: Text(
-                                signin ? 'Register here.' : 'Sign In',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.redAccent),
-                              ))
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ));
-            },
-            onAuthSuccess: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PickLocation()));
-            },
-          )),
+                    style: TextButton.styleFrom(primary: Colors.blue),
+                    onPressed: ()  {
+                      setState(() {
+                        action = false;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 5,
+            right: 5,
+            child: Text('V'),
+          )
+        ],
+      ):Stack(
+        children: [
+          Center(
+            child: Container(
+              // height: 200,
+              width: 500,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Name', border: OutlineInputBorder()),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'PhoneNo', border: OutlineInputBorder()),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                          labelText: 'Email', border: OutlineInputBorder()),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                          labelText: 'Password', border: OutlineInputBorder()),
+                    ),
+                  ),
+                  TextButton(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      child: Text('Register'),
+                    ),
+                    style: TextButton.styleFrom(primary: Colors.blue),
+                    onPressed: ()  {
+                      setState(() {
+                      context.read<AuthService>().signUp(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      );
+                      });
+                    },
+                  ),
+                  TextButton(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      child: Text('Login Instead?'),
+                    ),
+                    style: TextButton.styleFrom(primary: Colors.blue),
+                    onPressed: ()  {
+                      action = true;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 5,
+            right: 5,
+            child: Text('V'),
+          )
         ],
       ),
     );

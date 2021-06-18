@@ -1,41 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodorderingapp/models/orderItems.dart';
+import 'package:foodorderingapp/Data/data.dart';
+import 'package:foodorderingapp/screens/orderdetails.dart';
 
-// ignore: must_be_immutable
-class OrderPage extends StatelessWidget {
-  List<OrderItems> orderItems = [
-    OrderItems(
-        number: "1",
-        text: "Panneer Tika Masala",
-        secondaryText: "200gm",
-        amount: "₹99"),
-    OrderItems(
-        number: "1",
-        text: "Veg. Pulao",
-        secondaryText: "250gm",
-        amount: "₹129.00"),
-    OrderItems(
-        number: "1",
-        text: "Pao Bhaji",
-        secondaryText: "250gm",
-        amount: "₹99.00"),
-  ];
+class OrderSummary extends StatefulWidget {
+  @override
+  _OrderSummaryState createState() => _OrderSummaryState();
+}
+
+class _OrderSummaryState extends State<OrderSummary> {
+  String time = 'pick a time';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        title: FlatButton.icon(
-                  icon: Icon(Icons.arrow_back_ios,color: Colors.redAccent,),
-                  label: Text('Back',style: TextStyle(color: Colors.redAccent),),
-                  onPressed: () => Navigator.pop(context),
-                ),
-      ),
-      body: Stack(
+    return Stack(
         children: <Widget>[
           SingleChildScrollView(
             child: Padding(
@@ -54,7 +30,7 @@ class OrderPage extends StatelessWidget {
                     height: 40,
                   ),
                   ListView.builder(
-                    itemCount: orderItems.length,
+                    itemCount: orderedItem.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
@@ -72,7 +48,7 @@ class OrderPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(5)),
                                 child: Center(
                                   child: Text(
-                                    orderItems[index].number,
+                                    orderedItem[index].number,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12),
@@ -91,7 +67,7 @@ class OrderPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      orderItems[index].text,
+                                      orderedItem[index].itemName,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600),
                                     ),
@@ -99,7 +75,7 @@ class OrderPage extends StatelessWidget {
                                       height: 8,
                                     ),
                                     Text(
-                                      orderItems[index].secondaryText,
+                                      orderedItem[index].weight,
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey.shade500),
@@ -108,12 +84,17 @@ class OrderPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                orderItems[index].amount,
+                                '₹${orderedItem[index].amount}',
                                 style: TextStyle(
                                     color: Colors.redAccent,
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold),
                               ),
+                              IconButton(onPressed: (){
+                                setState(() {
+                                  orderedItem.removeAt(index);
+                                });
+                              }, icon: Icon(Icons.cancel),)
                             ],
                           ),
                           SizedBox(
@@ -140,7 +121,7 @@ class OrderPage extends StatelessWidget {
                             fontSize: 14, color: Colors.grey.shade500),
                       ),
                       Text(
-                        "₹227.00",
+                        '₹'+getTotal().toString(),
                         style: TextStyle(
                             fontSize: 14, color: Colors.grey.shade500),
                       ),
@@ -176,7 +157,7 @@ class OrderPage extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        "₹227.00",
+                        "₹"+getTotal().toString(),
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                       ),
@@ -185,6 +166,28 @@ class OrderPage extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
+                  Text(
+                    "Shedule Time",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                  Row(
+                      children: [
+                        OutlinedButton(
+                          child: Text(time),
+                          onPressed: () async {
+                            TimeOfDay _endHour = await showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.now(),
+                            );
+                            if (_endHour != null) {
+                              setState(() {
+                                time = _endHour.format(context);
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   Text(
                     "Address",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
@@ -249,6 +252,9 @@ class OrderPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 100,
+                  )
                 ],
               ),
             ),
@@ -261,7 +267,25 @@ class OrderPage extends StatelessWidget {
                 width: double.infinity,
                 padding: EdgeInsets.all(16),
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (orderedItem.isNotEmpty && time != 'pick a time') {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OrderDetails(
+                            time: time,
+                            amount: getTotal(),
+                            order: orderedItem,
+                          ),
+                        ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('Error Processing order'),
+                          duration: Duration(milliseconds: 100),
+                        ));
+                    }
+
+                  },
                   child: Text(
                     "SUBMIT ORDER",
                     style: TextStyle(
@@ -276,7 +300,13 @@ class OrderPage extends StatelessWidget {
             ),
           )
         ],
-      ),
-    );
+      );
+  }
+  getTotal(){
+    int totalAmount = 0;
+    orderedItem.forEach((order) {
+      totalAmount = totalAmount + order.amount;
+    });
+    return totalAmount;
   }
 }

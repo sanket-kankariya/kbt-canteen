@@ -1,6 +1,5 @@
-import 'package:foodorderingapp/models/cuisineItems.dart';
-import 'package:foodorderingapp/models/nearbyItems.dart';
-import 'package:foodorderingapp/models/popularItems.dart';
+import 'package:foodorderingapp/models/orderItems.dart';
+import 'package:foodorderingapp/screens/orderdetails.dart';
 
 List<String> nearbyLocations = [
   'Adgaon',
@@ -47,30 +46,7 @@ List<String> nearbyLocations = [
   'Vrindavan Colony',
   'Koknipura'
 ];
-List<CuisineItems> cuisineItems = [
-  CuisineItems(
-      text: "Pizza", secondaryText: "28 Restaurants", image: "images/pizza.jpeg"),
-  CuisineItems(
-      text: "Chat", secondaryText: "26 Restaurants", image: "images/sushi.jpeg"),
-  CuisineItems(
-      text: "Chinese",
-      secondaryText: "31 reviews",
-      image: "images/mexican.jpeg"),
-];
-List<PopularRestraunt> popularRestaurants = [
-  PopularRestraunt(
-      text: "Curry Leaves", image: "images/brewery.jpeg"),
-  PopularRestraunt(
-      text: "Bon Vivant", image: "images/greenpoint.jpeg"),
-];
-List<NearByItems> listItems = [
-  NearByItems(
-      text: "Sotto || Ponte Pizza\nPasta Tradizionali",
-      image: "images/ponte_pizza.jpeg"),
-  NearByItems(
-      text: "Delicious Pizza & Pasta\nTraditionaly",
-      image: "images/delicious.jpeg"),
-  NearByItems(
-      text: "Delicious Pizza & Pasta\nTraditionaly",
-      image: "images/delicious.jpeg"),
-];
+
+List orderedItem = [];
+
+
