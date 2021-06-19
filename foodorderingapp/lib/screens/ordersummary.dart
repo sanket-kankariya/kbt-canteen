@@ -1,6 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodorderingapp/Data/data.dart';
+import 'package:foodorderingapp/main.dart';
 import 'package:foodorderingapp/screens/orderdetails.dart';
+import 'package:uuid/uuid.dart';
+
 
 class OrderSummary extends StatefulWidget {
   @override
@@ -8,6 +13,7 @@ class OrderSummary extends StatefulWidget {
 }
 
 class _OrderSummaryState extends State<OrderSummary> {
+  String orderId = Uuid().v1();
   String time = 'pick a time';
   @override
   Widget build(BuildContext context) {
@@ -188,32 +194,32 @@ class _OrderSummaryState extends State<OrderSummary> {
                         ),
                       ],
                     ),
-                  Text(
-                    "Address",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "775, Shalimar, Nashik",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey.shade500,
-                            height: 1.4),
-                      ),
-                      Text(
-                        "Change",
-                        style: TextStyle(fontSize: 14, color: Colors.redAccent),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  // Text(
+                  //   "Address",
+                  //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  // ),
+                  // SizedBox(
+                  //   height: 12,
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: <Widget>[
+                  //     // Text(
+                  //     //   "775, Shalimar, Nashik",
+                  //     //   style: TextStyle(
+                  //     //       fontSize: 14,
+                  //     //       color: Colors.grey.shade500,
+                  //     //       height: 1.4),
+                  //     // ),
+                  //     // Text(
+                  //     //   "Change",
+                  //     //   style: TextStyle(fontSize: 14, color: Colors.redAccent),
+                  //     // ),
+                  //   ],
+                  // ),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
                   Text(
                     "Payment",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
@@ -267,8 +273,15 @@ class _OrderSummaryState extends State<OrderSummary> {
                 width: double.infinity,
                 padding: EdgeInsets.all(16),
                 child: FlatButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    List<String> items = orderedItem.map((e) => e.itemName).toList();
+                    print(items);
                     if (orderedItem.isNotEmpty && time != 'pick a time') {
+                      database.doc(DateTime.now().toString()).set({
+                        'orderId' :orderId,
+                        'time':time,
+                        'orders': items,
+                      });
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -276,6 +289,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                             time: time,
                             amount: getTotal(),
                             order: orderedItem,
+                            orderId: orderId,
                           ),
                         ));
                     } else {
@@ -284,7 +298,6 @@ class _OrderSummaryState extends State<OrderSummary> {
                           duration: Duration(milliseconds: 100),
                         ));
                     }
-
                   },
                   child: Text(
                     "SUBMIT ORDER",

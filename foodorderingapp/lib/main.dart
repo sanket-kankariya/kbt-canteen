@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,9 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
+
+
+CollectionReference database = FirebaseFirestore.instance.collection('database');
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -41,6 +45,7 @@ class AuthWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User>();
     if (firebaseUser != null) {
+      Firebase.initializeApp();
       return Menu();
     }
     return LoginPage();

@@ -181,7 +181,7 @@ class _MenuState extends State<Menu> {
           ),
         ),
       ),
-      floatingActionButton: orderedItem.isEmpty? null : FloatingActionButton(child: Icon(Icons.shopping_basket_outlined),onPressed: ()=> showModalBottomSheet(context: context, builder: (context) => OrderSummary())),
+      floatingActionButton: FloatingActionButton(child: Icon(Icons.shopping_basket_outlined),onPressed: ()=> showModalBottomSheet(context: context, builder: (context) => OrderSummary())),
     );
   }
 }

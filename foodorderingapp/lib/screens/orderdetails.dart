@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:foodorderingapp/screens/feedback.dart';
 import 'package:foodorderingapp/screens/pay.dart';
+import 'package:uuid/uuid.dart';
 
 class OrderDetails extends StatelessWidget {
   final String time;
   final int amount;
   final List order;
-  OrderDetails({@required this.amount, @required this.order,this.time});
+  final String orderId;
+  OrderDetails({@required this.amount, @required this.order,this.time,this.orderId});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +44,7 @@ class OrderDetails extends StatelessWidget {
               Text('Thu,25 Mar'),
               Row(
                 children: [
-                  Text('Order ID:sp45r32'),
+                  Text('Order ID:'+ orderId),
                   Spacer(),
                   Text(
                     'Amt: ₹$amount',
@@ -97,8 +99,8 @@ class OrderDetails extends StatelessWidget {
                               width: 10,
                             ),
                             Text('Processing your Order'),
-                            Spacer(),
-                            Text('9:01am'),
+                            // Spacer(),
+                            // Text('9:01am'),
                           ],
                         ),
                         SizedBox(
@@ -115,7 +117,7 @@ class OrderDetails extends StatelessWidget {
                             ),
                             Text('Order Ready to Pick'),
                             // Spacer(),
-                            // Text('ETA time 9:10am'),
+                            // Text('ETA time 10 Min'),
                           ],
                         ),
                         SizedBox(

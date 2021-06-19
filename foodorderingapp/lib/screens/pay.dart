@@ -9,7 +9,6 @@ class PayNow extends StatelessWidget {
            Icon(Icons.check_box,size: 45,color: Colors.green,),
            Text('Payment Done'),
            Text("your Payment is succesfully Done"),
-
          ],
       ),
     );
