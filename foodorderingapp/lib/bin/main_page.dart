@@ -1,6 +1,6 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
-// import 'package:foodorderingapp/screens/order_page.dart';
+// import 'package:Takeaway/screens/order_page.dart';
 
 // import 'home_page.dart';
 

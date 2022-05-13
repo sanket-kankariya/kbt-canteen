@@ -1,8 +1,8 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // // ignore: unused_import
-// import 'package:foodorderingapp/models/cuisineItems.dart';
-// import 'package:foodorderingapp/models/popularItems.dart';
+// import 'package:Takeaway/models/cuisineItems.dart';
+// import 'package:Takeaway/models/popularItems.dart';
 
 // // ignore: must_be_immutable
 // class PopularRestaurantsCard extends StatefulWidget {

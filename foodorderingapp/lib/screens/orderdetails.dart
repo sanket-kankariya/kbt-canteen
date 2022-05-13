@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodorderingapp/screens/feedback.dart';
-import 'package:foodorderingapp/screens/pay.dart';
+import 'package:Takeaway/screens/feedback.dart';
+import 'package:Takeaway/screens/pay.dart';
 import 'package:uuid/uuid.dart';
 
 class OrderDetails extends StatelessWidget {
@@ -8,7 +8,8 @@ class OrderDetails extends StatelessWidget {
   final int amount;
   final List order;
   final String orderId;
-  OrderDetails({@required this.amount, @required this.order,this.time,this.orderId});
+  OrderDetails(
+      {@required this.amount, @required this.order, this.time, this.orderId});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +26,7 @@ class OrderDetails extends StatelessWidget {
             label: Text(
               'Back',
               style: TextStyle(color: Colors.redAccent),
-            ), 
+            ),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -44,7 +45,7 @@ class OrderDetails extends StatelessWidget {
               Text('Thu,25 Mar'),
               Row(
                 children: [
-                  Text('Order ID:'+ orderId),
+                  Text('Order ID:' + orderId),
                   Spacer(),
                   Text(
                     'Amt: ₹$amount',
@@ -61,7 +62,7 @@ class OrderDetails extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
                     child: Column(
-                      mainAxisAlignment:MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -163,7 +164,11 @@ class OrderDetails extends StatelessWidget {
                   title: Text('Pay Now'),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PayNow(),));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PayNow(),
+                        ));
                   },
                 ),
               ),
@@ -173,7 +178,11 @@ class OrderDetails extends StatelessWidget {
                   title: Text('FeedBack'),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => FeedBack(),));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FeedBack(),
+                        ));
                   },
                 ),
               ),

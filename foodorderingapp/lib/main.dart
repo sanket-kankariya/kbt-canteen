@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:foodorderingapp/screens/auth/signin.dart';
-import 'package:foodorderingapp/screens/menu.dart';
-import 'package:foodorderingapp/services/authService.dart';
+import 'package:Takeaway/screens/auth/signin.dart';
+import 'package:Takeaway/screens/menu.dart';
+import 'package:Takeaway/services/authService.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -13,8 +13,8 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-
-CollectionReference database = FirebaseFirestore.instance.collection('database');
+CollectionReference database =
+    FirebaseFirestore.instance.collection('database');
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.red,
         ),
         home: AuthWrapper(),
       ),

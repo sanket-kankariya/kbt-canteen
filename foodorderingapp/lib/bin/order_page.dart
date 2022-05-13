@@ -1,7 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
-// import 'package:foodorderingapp/models/orderItems.dart';
-// import 'package:foodorderingapp/bin/display_order.dart';
+// import 'package:Takeaway/models/orderItems.dart';
+// import 'package:Takeaway/bin/display_order.dart';
 
 // // ignore: must_be_immutable
 // class OrderPage extends StatefulWidget {

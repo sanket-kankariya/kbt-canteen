@@ -1,6 +1,6 @@
 {
-    "name": "foodorderingapp",
-    "short_name": "foodorderingapp",
+    "name": "Takeaway",
+    "short_name": "Takeaway",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

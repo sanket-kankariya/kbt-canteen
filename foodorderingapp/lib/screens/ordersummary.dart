@@ -1,10 +1,11 @@
+import 'package:Takeaway/Data/data.dart';
+import 'package:Takeaway/screens/orderdetails.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:foodorderingapp/Data/data.dart';
-import 'package:foodorderingapp/main.dart';
-import 'package:foodorderingapp/screens/orderdetails.dart';
 import 'package:uuid/uuid.dart';
+
+import '../main.dart';
 
 
 class OrderSummary extends StatefulWidget {
@@ -13,7 +14,7 @@ class OrderSummary extends StatefulWidget {
 }
 
 class _OrderSummaryState extends State<OrderSummary> {
-  String orderId = Uuid().v1();
+  String orderId = Uuid().v1().substring(0,5);
   String time = 'pick a time';
   @override
   Widget build(BuildContext context) {
@@ -275,12 +276,16 @@ class _OrderSummaryState extends State<OrderSummary> {
                 child: FlatButton(
                   onPressed: () async {
                     List<String> items = orderedItem.map((e) => e.itemName).toList();
+                    List<int> price = orderedItem.map((e) => e.amount).toList();
                     print(items);
                     if (orderedItem.isNotEmpty && time != 'pick a time') {
                       database.doc(DateTime.now().toString()).set({
                         'orderId' :orderId,
                         'time':time,
                         'orders': items,
+                        'pending': true,
+                        'payment':false,
+                        'price': price,
                       });
                       Navigator.pushReplacement(
                         context,

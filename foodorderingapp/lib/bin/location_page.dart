@@ -1,5 +1,5 @@
 // import 'package:flutter/material.dart';
-// import 'package:foodorderingapp/screens/main_page.dart';
+// import 'package:Takeaways/main_page.dart';
 
 // class PickLocation extends StatefulWidget {
 //   @override

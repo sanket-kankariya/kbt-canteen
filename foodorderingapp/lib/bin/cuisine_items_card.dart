@@ -1,5 +1,5 @@
 // import 'package:flutter/material.dart';
-// import 'package:foodorderingapp/models/cuisineItems.dart';
+// import 'package:Takeaway/models/cuisineItems.dart';
 
 // // ignore: must_be_immutable
 // // ignore: must_be_immutable

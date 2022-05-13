@@ -1,10 +1,10 @@
 // import 'dart:ui';
 
 // import 'package:flutter/material.dart';
-// import 'package:foodorderingapp/Data/data.dart';
-// import 'package:foodorderingapp/components/cuisine_items_card.dart';
-// import 'package:foodorderingapp/components/home_title.dart';
-// import 'package:foodorderingapp/components/popular_restaurants_card.dart';
+// import 'package:Takeaway/Data/data.dart';
+// import 'package:Takeaway/components/cuisine_items_card.dart';
+// import 'package:Takeaway/components/home_title.dart';
+// import 'package:Takeaway/components/popular_restaurants_card.dart';
 
 
 // // ignore: must_be_immutable

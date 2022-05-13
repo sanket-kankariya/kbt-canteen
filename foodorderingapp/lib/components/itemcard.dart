@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:foodorderingapp/Data/data.dart';
-import 'package:foodorderingapp/models/orderItems.dart';
+
+import '../Data/data.dart';
+import '../models/orderItems.dart';
 // ignore: must_be_immutable
 class ItemCard extends StatefulWidget {
   String title;  int amount; String weight;

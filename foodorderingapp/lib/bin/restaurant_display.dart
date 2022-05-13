@@ -1,6 +1,6 @@
 // import 'package:flutter/material.dart';
-// import 'package:foodorderingapp/models/orderItems.dart';
-// import 'package:foodorderingapp/screens/order_page.dart';
+// import 'package:Takeaway/models/orderItems.dart';
+// import 'package:Takeaway/screens/order_page.dart';
 
 // class RestaurantDisplay extends StatefulWidget {
 //   @override

@@ -1,12 +1,12 @@
+import 'package:Takeaway/screens/snackmenu.dart';
+import 'package:Takeaway/services/authService.dart';
 import 'package:flutter/material.dart';
-import 'package:foodorderingapp/Data/data.dart';
-import 'package:foodorderingapp/models/orderItems.dart';
-import 'package:foodorderingapp/screens/ordersummary.dart';
-import 'package:foodorderingapp/screens/snackmenu.dart';
-import 'package:foodorderingapp/screens/drinks.dart';
-import 'package:foodorderingapp/screens/cakes.dart';
-import 'package:foodorderingapp/services/authService.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'cakes.dart';
+import 'drinks.dart';
+import 'ordersummary.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -14,17 +14,19 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome'),
         actions: [
-          IconButton(onPressed: (){
-                      context.read<AuthService>().signOut(
-                      );
-      }, icon: Icon(Icons.logout))],),
+          IconButton(
+              onPressed: () {
+                context.read<AuthService>().signOut();
+              },
+              icon: Icon(Icons.logout))
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -32,9 +34,25 @@ class _MenuState extends State<Menu> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Center(
+                  child: Image.network(
+                    "https://scontent-bom1-1.xx.fbcdn.net/v/t1.6435-9/121464009_103069451592268_1928310463694548591_n.jpg?stp=dst-jpg_s960x960&_nc_cat=105&ccb=1-6&_nc_sid=e3f864&_nc_ohc=_vbBAUA9BUwAX8jNuGF&_nc_ht=scontent-bom1-1.xx&oh=00_AT-ZTgsCumzag8CRswBykM2Rh4zGhDLk6zX288ARleLrUg&oe=62A1D295",
+                    fit: BoxFit.fitWidth,
+                    height: 200,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                ),
                 Text(
-                  'Kbt Canteen',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
+                  'Hotel Green Leaves',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+                  maxLines: 2,
+                ),
+                Text(
+                  '1, 29/30, Good Shepherd Church Road, Kausar Baugh Rd Pune, Maharashtra 411048',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                      color: Color.fromARGB(255, 122, 122, 122)),
                   maxLines: 2,
                 ),
                 // SizedBox(height: 10,),
@@ -127,14 +145,19 @@ class _MenuState extends State<Menu> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
                       child: Text('Location'),
-                      onPressed: () {},
+                      onPressed: () {
+                        launchUrl(Uri.parse(
+                            "https://www.google.com/maps/place/Hotel+Green+Leaves/@18.4703314,73.9012367,18.3z/data=!4m5!3m4!1s0x3bc2eb3b52acec67:0xc38c69b002392b68!8m2!3d18.4699735!4d73.9033439?hl=en"));
+                      },
                     ),
                     OutlineButton(
                       borderSide: BorderSide(color: Colors.redAccent),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
                       child: Text('Contact'),
-                      onPressed: () {},
+                      onPressed: () {
+                        launchUrl(Uri.parse("tel:+918888888888"));
+                      },
                     )
                   ],
                 ),
@@ -149,20 +172,36 @@ class _MenuState extends State<Menu> {
                   child: Column(
                     children: [
                       ListTile(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SnackMenu(),));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SnackMenu(),
+                              ));
                         },
                         title: Text('Snacks'),
                         trailing: Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       ListTile(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Drinks(),));},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Drinks(),
+                              ));
+                        },
                         title: Text('Drinks'),
                         trailing: Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       ListTile(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Cakes(),));},
-                        title: Text('Cake'),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Cakes(),
+                              ));
+                        },
+                        title: Text('Desserts'),
                         trailing: Icon(Icons.arrow_forward_ios_outlined),
                       ),
                     ],
@@ -181,7 +220,10 @@ class _MenuState extends State<Menu> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(child: Icon(Icons.shopping_basket_outlined),onPressed: ()=> showModalBottomSheet(context: context, builder: (context) => OrderSummary())),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.shopping_basket_outlined),
+          onPressed: () => showModalBottomSheet(
+              context: context, builder: (context) => OrderSummary())),
     );
   }
 }

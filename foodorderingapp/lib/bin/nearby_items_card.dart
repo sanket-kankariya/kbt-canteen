@@ -1,6 +1,6 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
-// import 'package:foodorderingapp/models/nearbyItems.dart';
+// import 'package:Takeaway/models/nearbyItems.dart';
 
 // // ignore: must_be_immutable
 // class ListItemCard extends StatefulWidget {

@@ -1,5 +1,4 @@
-import 'package:foodorderingapp/models/orderItems.dart';
-import 'package:foodorderingapp/screens/orderdetails.dart';
+
 
 // List<String> nearbyLocations = [
 //   'Adgaon',
@@ -46,6 +45,8 @@ import 'package:foodorderingapp/screens/orderdetails.dart';
 //   'Vrindavan Colony',
 //   'Koknipura'
 // ];
+
+import '../models/orderItems.dart';
 
 List<OrderItems> orderedItem = [];
 
